@@ -11,6 +11,13 @@ gitlab_nginx_ssl_certificate_path: "{{ gitlab_nginx_ssl_cert_path }}/{{ gitlab_n
 gitlab_nginx_ssl_certificate_key_path: "{{ gitlab_nginx_ssl_key_path }}/{{ gitlab_nginx_ssl_filename }}.key"
 gitlab_nginx_ssl_port: 443
 
+# Basic Gitlab Container Registry Configuration
+gitlab_registry_enabled: False
+gitlab_registry_fqdn: "{{ ansible_fqdn }}"
+gitlab_registry_nginx_ssl_port: 4567
+gitlab_registry_nginx_ssl_enabled: True
+gitlab_registry_nginx_ssl_certificate_path: "{{ gitlab_nginx_ssl_certificate_path }}"
+gitlab_registry_nginx_ssl_certificate_key_path: "{{ gitlab_nginx_ssl_certificate_key_path }}"
 
 # Basic GitLab CI Configuration
 gitlab_ci_enabled: False

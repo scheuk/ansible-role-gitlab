@@ -20,6 +20,24 @@ external_url "http://{{ gitlab_fqdn }}"
 {% include 'gitlab_logging.j2' %}
 {% include 'gitlab_git.j2' %}
 
+{%- if gitlab_registry_enabled %}
+
+
+# --- GitLab Container Registry Configuration --- #
+{% if gitlab_registry_nginx_ssl_enabled == True %}
+registry_external_url "https://{{ gitlab_registry_fqdn }}:{{ gitlab_registry_nginx_ssl_port }}"
+
+#########################
+# GitLab registry Nginx #
+#########################
+
+registry_nginx['ssl_certificate'] = "{{ gitlab_registry_nginx_ssl_certificate_path }}"
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key_path }}"
+{% else %}
+registry_external_url "http://{{ gitlab_registry_fqdn }}"
+{% endif -%}
+{% endif -%}
+
 {%- if gitlab_ci_enabled %}
 
 
