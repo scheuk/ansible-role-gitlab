@@ -137,7 +137,7 @@
     name: "remove old GitLab backups"
     minute: "51"
     hour: "23"
-    job: "find /var/opt/gitlab/backups -type f -mtime +{{ gitlab_days_old_backups }} -exec rm '{}' ';'"
+    job: "find {{ gitlab_backup_path }} -type f -mtime +{{ gitlab_days_old_backups }} -exec rm '{}' ';'"
   tags:
     - gitlab
     - gitlab-cron
