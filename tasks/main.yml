@@ -1,9 +1,9 @@
----
 - name: Include distribution specific variables
   include_vars: "{{ ansible_os_family }}.yml"
   tags:
     - gitlab
     - gitlabupdate
+    - always
 
 - name: Get current GitLab version
   command: "{{ gitlab_check_command }} gitlab gitlab-ce"
@@ -14,6 +14,7 @@
   tags:
     - gitlab
     - gitlab-update
+    - always
 
 - name: Copy GitLab repo file
   template:
