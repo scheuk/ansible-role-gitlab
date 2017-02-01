@@ -10,7 +10,7 @@
   register: gitlab_status
   failed_when: false
   changed_when: false
-  always_run: yes
+  check_mode: no
   tags:
     - gitlab
     - gitlab-update
@@ -22,7 +22,6 @@
     dest: "{{ gitlab_repo_dir }}/{{ gitlab_repo_file }}"
   tags:
     - gitlab
-    - gitlabupdate
 
 - name: Create gitlab-ci user
   user:
@@ -35,12 +34,11 @@
     - gitlab
     - gitlab-users
 
-- { include: install-RedHat.yml, when: 'ansible_os_family == "RedHat"'}
-- { include: install-Debian.yml, when: 'ansible_os_family == "Debian"'}
+- include: install-{{ ansible_os_family }}.yml
 
-- name: Start and enable postfix
+- name: Start and enable mail
   service:
-    name: postfix
+    name: "{{ gitlab_smtp_service }}"
     enabled: yes
     state: started
   tags:

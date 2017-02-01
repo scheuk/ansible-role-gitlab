@@ -8,13 +8,13 @@
 
 - name: DEBIAN | Install support packages
   apt:
-    name: "{{ item }}"
-    state: latest
-    update_cache: yes
-  with_items:
+    name:
       - curl
       - ca-certificates
-      - postfix
+      - "{{ gitlab_smtp_service }}"
+      - apt-transport-https
+    state: latest
+    update_cache: yes
   tags:
     - gitlab
     - gitlab-packages
