@@ -32,8 +32,8 @@ registry_external_url "https://{{ gitlab_registry_fqdn }}:{{ gitlab_registry_ngi
 #########################
 
 registry_nginx['ssl_certificate'] = "{{ gitlab_registry_nginx_ssl_certificate_path }}"
-{% else %}
 registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key_path }}"
+{% else %}
 registry_external_url "http://{{ gitlab_registry_fqdn }}"
 {% endif -%}
 {% endif -%}
