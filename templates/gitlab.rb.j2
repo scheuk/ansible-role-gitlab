@@ -1,6 +1,6 @@
 # --- GitLab Configuration --- #
 {% if gitlab_nginx_ssl_key is defined or gitlab_nginx_ssl_enabled == True %}
-external_url "https://{{ gitlab_fqdn }}{% if gitlab_nginx_ssl_port != 443 %}:{{ gitlab_nginx_ssl_port }}{% endif %}"
+external_url "https://{{ gitlab_fqdn }}{% if gitlab_nginx_ssl_port | int != 443 %}:{{ gitlab_nginx_ssl_port }}{% endif %}"
 {% else %}
 external_url "http://{{ gitlab_fqdn }}"
 {% endif -%}
@@ -21,9 +21,9 @@ external_url "http://{{ gitlab_fqdn }}"
 {% include 'gitlab_git.j2' %}
 
 {%- if gitlab_registry_enabled %}
-
-
 # --- GitLab Container Registry Configuration --- #
+{%- if gitlab_registry_path %}gitlab_rails['registry_path'] = '{{ gitlab_registry_path }}'
+{% endif -%}
 {% if gitlab_registry_nginx_ssl_enabled == True %}
 registry_external_url "https://{{ gitlab_registry_fqdn }}:{{ gitlab_registry_nginx_ssl_port }}"
 
@@ -32,28 +32,8 @@ registry_external_url "https://{{ gitlab_registry_fqdn }}:{{ gitlab_registry_ngi
 #########################
 
 registry_nginx['ssl_certificate'] = "{{ gitlab_registry_nginx_ssl_certificate_path }}"
-registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key_path }}"
 {% else %}
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key_path }}"
 registry_external_url "http://{{ gitlab_registry_fqdn }}"
 {% endif -%}
 {% endif -%}
-
-{%- if gitlab_ci_enabled %}
-
-
-# --- GitLab CI Configuration --- #
-{% if gitlab_ci_nginx_ssl_key is defined or gitlab_ci_nginx_ssl_enabled == True %}
-ci_external_url "https://{{ gitlab_ci_fqdn }}{% if gitlab_ci_nginx_ssl_port != "443" %}:{{ gitlab_ci_nginx_ssl_port }}{% endif %}"
-{% else %}
-ci_external_url "http://{{ gitlab_ci_fqdn }}"
-{% endif -%}
-
-{% include 'gitlab_ci_application.j2' %}
-{% include 'gitlab_ci_database.j2' %}
-{% include 'gitlab_ci_redis.j2' %}
-{% include 'gitlab_ci_email.j2' %}
-{% include 'gitlab_ci.j2' %}
-{% include 'gitlab_ci_unicorn.j2' %}
-{% include 'gitlab_ci_nginx.j2' %}
-
-{%- endif %}
