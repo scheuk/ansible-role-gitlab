@@ -22,8 +22,8 @@ external_url "http://{{ gitlab_fqdn }}"
 
 {%- if gitlab_registry_enabled %}
 # --- GitLab Container Registry Configuration --- #
-{%- if gitlab_registry_path %}gitlab_rails['registry_path'] = '{{ gitlab_registry_path }}'
-{% endif -%}
+{% if gitlab_registry_path %}gitlab_rails['registry_path'] = '{{ gitlab_registry_path }}'
+{% endif %}
 {% if gitlab_registry_nginx_ssl_enabled == True %}
 registry_external_url "https://{{ gitlab_registry_fqdn }}:{{ gitlab_registry_nginx_ssl_port }}"
 
