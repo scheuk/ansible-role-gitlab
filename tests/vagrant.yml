@@ -9,6 +9,7 @@
     # gitlab_version_suffix: "-ce.2"
     gitlab_nginx_redirect_http_to_https: True
     gitlab_registry_enabled: True
+    gitlab_registry_path: "/var/opt/registry"
     gitlab_nginx_ssl_crt: |
       -----BEGIN CERTIFICATE-----
       MIID9DCCAtygAwIBAgIJAOzBpg5UEOyYMA0GCSqGSIb3DQEBCwUAMFkxCzAJBgNV

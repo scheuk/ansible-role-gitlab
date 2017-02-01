@@ -19,6 +19,7 @@ gitlab_registry_nginx_ssl_port: 4567
 gitlab_registry_nginx_ssl_enabled: True
 gitlab_registry_nginx_ssl_certificate_path: "{{ gitlab_nginx_ssl_certificate_path }}"
 gitlab_registry_nginx_ssl_certificate_key_path: "{{ gitlab_nginx_ssl_certificate_key_path }}"
+#gitlab_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
 
 
 # These are examples of storing a block varible in YAML using the "|" character
